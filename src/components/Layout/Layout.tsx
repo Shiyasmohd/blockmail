@@ -40,11 +40,11 @@ interface LinkItemProps {
     icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-    { name: 'Home', icon: FiHome },
-    { name: 'Trending', icon: FiTrendingUp },
-    { name: 'Explore', icon: FiCompass },
-    { name: 'Favourites', icon: FiStar },
-    { name: 'Settings', icon: FiSettings },
+    { name: 'Inbox', icon: FiHome },
+    { name: 'Sent', icon: FiTrendingUp },
+    { name: 'Starred', icon: FiCompass },
+    { name: 'Bin', icon: FiStar },
+    { name: 'Support', icon: FiSettings },
 ];
 
 export default function MainLayout({
