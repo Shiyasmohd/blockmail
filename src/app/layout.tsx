@@ -9,6 +9,7 @@ import { mainnet, polygon } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 import '@rainbow-me/rainbowkit/styles.css';
+import MainLayout from '@/components/Layout/Layout'
 
 // export const metadata = {
 //   title: 'Create Next App',
@@ -25,7 +26,7 @@ const { chains, provider } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'Sakaba',
+  appName: 'Web3 Email',
   chains
 });
 
@@ -47,7 +48,11 @@ export default function RootLayout({
         <WagmiConfig client={wagmiClient}>
           <RainbowKitProvider chains={chains}>
             <CacheProvider>
-              <ChakraProvider>{children}</ChakraProvider>
+              <ChakraProvider>
+                <MainLayout>
+                  {children}
+                </MainLayout>
+              </ChakraProvider>
             </CacheProvider>
           </RainbowKitProvider>
         </WagmiConfig>
