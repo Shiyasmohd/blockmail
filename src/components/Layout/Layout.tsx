@@ -35,17 +35,20 @@ import {
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import Logo from '../../../public/assets/logo.png'
+import Image from 'next/image';
 
 interface LinkItemProps {
     name: string;
     icon: IconType;
+    route: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-    { name: 'Inbox', icon: FiHome },
-    { name: 'Sent', icon: FiTrendingUp },
-    { name: 'Starred', icon: FiCompass },
-    { name: 'Bin', icon: FiStar },
-    { name: 'Support', icon: FiSettings },
+    { name: 'Inbox', icon: FiHome, route: '/' },
+    { name: 'Sent', icon: FiTrendingUp, route: '/sent' },
+    { name: 'Starred', icon: FiStar, route: '/starred' },
+    { name: 'Bin', icon: FiCompass, route: '/bin' },
+    // { name: 'Support', icon: FiSettings, route: '/support' },
 ];
 
 export default function MainLayout({
@@ -97,13 +100,13 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
             h="full"
             {...rest}>
             <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-                <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-                    Logo
-                </Text>
+                <div className=''>
+                    <Image src={Logo} alt="Logo" width={125} />
+                </div>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {LinkItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon}>
+                <NavItem key={link.name} icon={link.icon} route={link.route}>
                     {link.name}
                 </NavItem>
             ))}
@@ -113,11 +116,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 
 interface NavItemProps extends FlexProps {
     icon: IconType;
+    route: string;
     children: ReactText;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, route, children, ...rest }: NavItemProps) => {
     return (
-        <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+        <Link href={route} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
             <Flex
                 align="center"
                 p="4"
@@ -126,7 +130,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
                 role="group"
                 cursor="pointer"
                 _hover={{
-                    bg: 'cyan.400',
+                    bg: '#7ec4ba',
                     color: 'white',
                 }}
                 {...rest}>
@@ -168,14 +172,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 aria-label="open menu"
                 icon={<FiMenu />}
             />
-
-            <Text
-                display={{ base: 'flex', md: 'none' }}
-                fontSize="2xl"
-                fontFamily="monospace"
-                fontWeight="bold">
-                Logo
-            </Text>
 
             <HStack spacing={{ base: '0', md: '6' }}>
                 { }
