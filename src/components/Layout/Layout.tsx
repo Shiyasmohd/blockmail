@@ -31,6 +31,8 @@ import {
     FiMenu,
     FiBell,
     FiChevronDown,
+    FiMail,
+    FiSend
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
@@ -44,8 +46,8 @@ interface LinkItemProps {
     route: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-    { name: 'Inbox', icon: FiHome, route: '/' },
-    { name: 'Sent', icon: FiTrendingUp, route: '/sent' },
+    { name: 'Inbox', icon: FiMail, route: '/' },
+    { name: 'Sent', icon: FiSend, route: '/sent' },
     { name: 'Starred', icon: FiStar, route: '/starred' },
     { name: 'Bin', icon: FiCompass, route: '/bin' },
     // { name: 'Support', icon: FiSettings, route: '/support' },
