@@ -21,6 +21,8 @@ import {
     MenuDivider,
     MenuItem,
     MenuList,
+    Button,
+    Divider,
 } from '@chakra-ui/react';
 import {
     FiHome,
@@ -32,7 +34,8 @@ import {
     FiBell,
     FiChevronDown,
     FiMail,
-    FiSend
+    FiSend,
+    FiEdit2
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
@@ -107,6 +110,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                 </div>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
+            <div className='flex justify-center'>
+                <Button leftIcon={<FiEdit2/>} p={"6"} shadow={'lg'} m={'4'} _hover={{bg: '#7ec4ba',color: 'white',}} rounded={'xl'}>
+                    Compose
+                </Button>
+            </div>
             {LinkItems.map((link) => (
                 <NavItem key={link.name} icon={link.icon} route={link.route}>
                     {link.name}
