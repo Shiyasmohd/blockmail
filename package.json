@@ -13,7 +13,8 @@
     "@chakra-ui/react": "^2.5.5",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@rainbow-me/rainbowkit": "^0.8.1",
+    "@rainbow-me/rainbowkit": "^1.0.1",
+    "@tableland/sdk": "^4.3.2",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
@@ -26,7 +27,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.9.0",
     "typescript": "5.0.3",
-    "wagmi": "^0.9.5"
+    "viem": "~0.3.35",
+    "wagmi": "~1.0.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
