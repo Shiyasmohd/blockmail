@@ -20,6 +20,7 @@ import MainLayout from '@/components/Layout/Layout'
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
     polygonMumbai,
+    mainnet
   ],
   [publicProvider()]
 );
