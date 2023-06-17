@@ -4,8 +4,8 @@ import './globals.css'
 import { CacheProvider } from '@chakra-ui/next-js'
 import { ChakraProvider } from '@chakra-ui/react'
 import { RainbowKitProvider, getDefaultWallets } from '@rainbow-me/rainbowkit'
-import { WagmiConfig, configureChains, createClient } from 'wagmi'
-import { mainnet, polygon } from 'wagmi/chains'
+import { WagmiConfig, configureChains, createConfig } from 'wagmi'
+import { polygonMumbai } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 import '@rainbow-me/rainbowkit/styles.css';
@@ -17,12 +17,11 @@ import MainLayout from '@/components/Layout/Layout'
 // }
 
 
-const { chains, provider } = configureChains(
-  [mainnet, polygon],
+const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
-    alchemyProvider({ apiKey: process.env.ALCHEMY_ID as string }),
-    publicProvider()
-  ]
+    polygonMumbai,
+  ],
+  [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
@@ -30,11 +29,12 @@ const { connectors } = getDefaultWallets({
   chains
 });
 
-const wagmiClient = createClient({
+const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  provider
-})
+  publicClient,
+  webSocketPublicClient,
+});
 
 
 export default function RootLayout({
@@ -45,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <WagmiConfig client={wagmiClient}>
+        <WagmiConfig config={wagmiConfig}>
           <RainbowKitProvider chains={chains}>
             <CacheProvider>
               <ChakraProvider>
