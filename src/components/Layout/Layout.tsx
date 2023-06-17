@@ -24,7 +24,8 @@ import {
     Button,
     Divider,
     Input,
-    Textarea
+    Textarea,
+    useToast
 } from '@chakra-ui/react';
 import {
     Modal,
@@ -59,6 +60,7 @@ import { ReactText } from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Logo from '../../../public/assets/logo.png'
 import Image from 'next/image';
+import { useAccount, useChainId, useNetwork, } from 'wagmi';
 
 interface LinkItemProps {
     name: string;
@@ -82,7 +84,7 @@ export default function MainLayout({
     return (
         <Box minH="100vh" bg={'white'}>
             <SidebarContent
-                onClose={() => onClose}
+                onclose={() => onClose}
                 display={{ base: 'none', md: 'block' }}
             />
             <Drawer
@@ -94,7 +96,7 @@ export default function MainLayout({
                 onOverlayClick={onClose}
                 size="full">
                 <DrawerContent>
-                    <SidebarContent onClose={onClose} />
+                    <SidebarContent onclose={onClose} />
                 </DrawerContent>
             </Drawer>
             {/* mobilenav */}
@@ -113,8 +115,32 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
+    const account = useAccount()
+    const chainId = useChainId()
+    const toast = useToast()
+    const network = useNetwork()
+
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
+
+    const connectWalletToast = () => {
+        toast({
+            title: 'Please connect your wallet first.',
+            status: 'info',
+            duration: 9000,
+            isClosable: false,
+        })
+    }
+
+    const changeNetworkToast = () => {
+        toast({
+            title: 'Please change network to Polygon Mumbai Testnet.',
+            status: 'info',
+            duration: 9000,
+            isClosable: false,
+        })
+    }
+
     return (
         <Box
             transition="3s ease"
@@ -132,7 +158,8 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onclose} />
             </Flex>
             <div className='flex justify-center'>
-                <Button leftIcon={<FiEdit2 />} p={"6"} shadow={'lg'} m={'4'} _hover={{ bg: '#7ec4ba', color: 'white', }} rounded={'xl'} onClick={onOpen}>
+                <Button leftIcon={<FiEdit2 />} p={"6"} shadow={'lg'} m={'4'} _hover={{ bg: '#7ec4ba', color: 'white', }} rounded={'xl'}
+                    onClick={account.isConnected ? network.chain?.id == 80001 ? onOpen : changeNetworkToast : connectWalletToast}>
                     Compose
                 </Button>
                 <Modal
@@ -142,8 +169,8 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
                     onClose={onClose}
                 >
                     <ModalOverlay />
-                    <ModalContent>
-                        <ModalHeader>New Message</ModalHeader>
+                    <ModalContent className='bg-white'>
+                        <ModalHeader>Send Email</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody pb={6}>
                             <FormControl>
@@ -166,7 +193,7 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
                             <Button colorScheme='blue' mr={3}>
                                 Send
                             </Button>
-                            <Button onClick={onClose}>Send</Button>
+                            <Button colorScheme='red' onClick={onClose}>Cancel</Button>
                         </ModalFooter>
                     </ModalContent>
                 </Modal>
