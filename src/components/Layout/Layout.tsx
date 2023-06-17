@@ -51,8 +51,8 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
     { name: 'Inbox', icon: FiMail, route: '/' },
     { name: 'Sent', icon: FiSend, route: '/sent' },
-    { name: 'Starred', icon: FiStar, route: '/starred' },
-    { name: 'Bin', icon: FiCompass, route: '/bin' },
+    // { name: 'Starred', icon: FiStar, route: '/starred' },
+    // { name: 'Bin', icon: FiCompass, route: '/bin' },
     // { name: 'Support', icon: FiSettings, route: '/support' },
 ];
 
