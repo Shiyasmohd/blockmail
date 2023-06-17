@@ -63,7 +63,7 @@ export default function MainLayout({
 }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
-        <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+        <Box minH="100vh" bg={'white'}>
             <SidebarContent
                 onClose={() => onClose}
                 display={{ base: 'none', md: 'block' }}
@@ -82,10 +82,10 @@ export default function MainLayout({
             </Drawer>
             {/* mobilenav */}
             <MobileNav onOpen={onOpen} />
-            <Box ml={{ base: 0, md: 60 }} p="4">
+            <Box ml={{ base: 0, md: 60 }}>
                 {children}
             </Box>
-        </Box>
+        </Box >
     );
 }
 
@@ -97,9 +97,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     return (
         <Box
             transition="3s ease"
-            bg={useColorModeValue('white', 'gray.900')}
+            bg={'white'}
             borderRight="1px"
-            borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+            borderRightColor={'white'}
             w={{ base: 'full', md: 60 }}
             pos="fixed"
             h="full"
@@ -111,7 +111,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             <div className='flex justify-center'>
-                <Button leftIcon={<FiEdit2/>} p={"6"} shadow={'lg'} m={'4'} _hover={{bg: '#7ec4ba',color: 'white',}} rounded={'xl'}>
+                <Button leftIcon={<FiEdit2 />} p={"6"} shadow={'lg'} m={'4'} _hover={{ bg: '#7ec4ba', color: 'white', }} rounded={'xl'}>
                     Compose
                 </Button>
             </div>
@@ -170,9 +170,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             px={{ base: 4, md: 4 }}
             height="20"
             alignItems="center"
-            bg={useColorModeValue('white', 'gray.900')}
+            bg={'white'}
             borderBottomWidth="1px"
-            borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+            borderBottomColor={'white'}
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
             {...rest}>
             <IconButton
