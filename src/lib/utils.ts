@@ -1,5 +1,6 @@
 import { Database } from "@tableland/sdk";
-
+import { getDefaultProvider } from "ethers";
+const ethMainnetProvider = getDefaultProvider("https://mainnet.infura.io/v3/89d40c97f4bf44ceba600eeef7b57070");
 type Mail = {
     id: number;
     sender: string;
@@ -37,4 +38,27 @@ export async function getUserMail(sender: string): Promise<Mail[]> {
     const { results } = await db.prepare<Mail>(`SELECT * FROM ${TABLE_NAME} WHERE sender="${sender}";`).all();
     console.log(results);
     return results
+}
+
+//to get the ENS name of an address
+export const getEnsName = async (address: string) => {
+
+    try {
+        const name = await ethMainnetProvider.lookupAddress(address);
+        return name;
+    } catch (error) {
+        console.error('Error occurred while looking up ENS name:', error);
+        return null;
+    }
+};
+
+// a function to find the address from ens name
+export const getAddress = async (ensName: string) => {
+    try {
+        const address = await ethMainnetProvider.resolveName(ensName);
+        return address;
+    } catch (error) {
+        console.error('Error occurred while looking up address:', error);
+        return null;
+    }
 }
