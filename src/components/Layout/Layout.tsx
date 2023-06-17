@@ -23,7 +23,24 @@ import {
     MenuList,
     Button,
     Divider,
+    Input,
+    Textarea
 } from '@chakra-ui/react';
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+  } from '@chakra-ui/react'
+  import {
+    FormControl,
+    FormLabel,
+    FormErrorMessage,
+    FormHelperText,
+  } from '@chakra-ui/react'
 import {
     FiHome,
     FiTrendingUp,
@@ -90,10 +107,14 @@ export default function MainLayout({
 }
 
 interface SidebarProps extends BoxProps {
-    onClose: () => void;
+    onclose: () => void;
 }
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const initialRef = React.useRef(null)
+    const finalRef = React.useRef(null)
     return (
         <Box
             transition="3s ease"
@@ -108,12 +129,47 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                 <div className=''>
                     <Image src={Logo} alt="Logo" width={125} />
                 </div>
-                <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+                <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onclose} />
             </Flex>
             <div className='flex justify-center'>
-                <Button leftIcon={<FiEdit2 />} p={"6"} shadow={'lg'} m={'4'} _hover={{ bg: '#7ec4ba', color: 'white', }} rounded={'xl'}>
+                <Button leftIcon={<FiEdit2 />} p={"6"} shadow={'lg'} m={'4'} _hover={{ bg: '#7ec4ba', color: 'white', }} rounded={'xl'} onClick={onOpen}>
                     Compose
                 </Button>
+                <Modal
+                  initialFocusRef={initialRef}
+                  finalFocusRef={finalRef}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                >
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalHeader>Create your account</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody pb={6}>
+                      <FormControl>
+                        <FormLabel>To</FormLabel>
+                        <Input ref={initialRef} placeholder='First name' />
+                      </FormControl>
+
+                      <FormControl mt={4}>
+                        <FormLabel>Subject</FormLabel>
+                        <Input placeholder='Last name' />
+                      </FormControl>
+
+                      <FormControl mt={4}>
+                        <FormLabel>Message</FormLabel>
+                        <Textarea placeholder='Leave your message here!!' />
+                      </FormControl>
+                    </ModalBody>
+
+                    <ModalFooter>
+                      <Button colorScheme='blue' mr={3}>
+                        Send
+                      </Button>
+                      <Button onClick={onClose}>Cancel</Button>
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal>
             </div>
             {LinkItems.map((link) => (
                 <NavItem key={link.name} icon={link.icon} route={link.route}>
