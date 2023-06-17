@@ -35,7 +35,7 @@ export default function Test() {
         // Type is inferred due to `Database` instance definition.
         // Or, it can be identified in `prepare`.
         // const { results } = await db.prepare<Mail>(`SELECT * FROM ${tableName};`).all();
-        const { results } = await db.prepare<Mail>(`SELECT * FROM ${tableName} WHERE sender="123";`).all();
+        const { results } = await db.prepare<Mail>(`SELECT * FROM ${tableName};`).all();
 
         console.log(results);
     }

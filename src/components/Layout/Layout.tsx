@@ -61,6 +61,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Logo from '../../../public/assets/logo.png'
 import Image from 'next/image';
 import { useAccount, useChainId, useNetwork, } from 'wagmi';
+import { sendMail } from '@/lib/utils';
 
 interface LinkItemProps {
     name: string;
@@ -120,6 +121,10 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
     const toast = useToast()
     const network = useNetwork()
 
+    const [to, setTo] = React.useState('')
+    const [subject, setSubject] = React.useState('')
+    const [message, setMessage] = React.useState('')
+
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
 
@@ -175,22 +180,22 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
                         <ModalBody pb={6}>
                             <FormControl>
                                 <FormLabel>To</FormLabel>
-                                <Input ref={initialRef} placeholder='Wallet Address/ENS' />
+                                <Input ref={initialRef} placeholder='Wallet Address/ENS' onChange={(e) => setTo(e.target.value)} />
                             </FormControl>
 
                             <FormControl mt={4}>
                                 <FormLabel>Subject</FormLabel>
-                                <Input placeholder='' />
+                                <Input placeholder='' onChange={(e) => setSubject(e.target.value)} />
                             </FormControl>
 
                             <FormControl mt={4}>
                                 <FormLabel>Message</FormLabel>
-                                <Textarea placeholder='Leave your message here!!' />
+                                <Textarea placeholder='Leave your message here!!' onChange={(e) => setMessage(e.target.value)} />
                             </FormControl>
                         </ModalBody>
 
                         <ModalFooter>
-                            <Button colorScheme='blue' mr={3}>
+                            <Button colorScheme='blue' mr={3} onClick={() => sendMail(account.address as string, to, subject, message)}>
                                 Send
                             </Button>
                             <Button colorScheme='red' onClick={onClose}>Cancel</Button>

@@ -11,13 +11,18 @@ type Mail = {
 
 const TABLE_NAME = 'shiyas_80001_6998'
 
-export async function sendMail(id: number, sender: string, recipient: string, subject: string, body: string) {
+export async function sendMail(sender: string, recipient: string, subject: string, body: string) {
+
     // Insert a row into the table
     const db = new Database<Mail>();
-
+    let id = generateRandomNumber()
+    let recipientAddr = recipient
+    if (recipient.includes('.eth')) {
+        let recipientAddr = await getAddress(recipient)
+    }
     const { meta: insert } = await db
         .prepare(`INSERT INTO ${TABLE_NAME} (id, sender, recipient, subject, body) VALUES (?, ?, ?, ?, ?);`)
-        .bind(id, sender, recipient, subject, body)
+        .bind(id, sender, recipientAddr, subject, body)
         .run();
     console.log(insert.txn)
 
@@ -61,4 +66,11 @@ export const getAddress = async (ensName: string) => {
         console.error('Error occurred while looking up address:', error);
         return null;
     }
+}
+
+function generateRandomNumber(): number {
+    const min = 10000000; // Minimum 8-digit number (inclusive)
+    const max = 99999999; // Maximum 8-digit number (inclusive)
+
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
