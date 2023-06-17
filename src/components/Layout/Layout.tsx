@@ -166,7 +166,7 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
                             <Button colorScheme='blue' mr={3}>
                                 Send
                             </Button>
-                            <Button onClick={onClose}>Cancel</Button>
+                            <Button onClick={onClose}>Send</Button>
                         </ModalFooter>
                     </ModalContent>
                 </Modal>
