@@ -143,7 +143,7 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
                 >
                     <ModalOverlay />
                     <ModalContent>
-                        <ModalHeader>Compose your mail here</ModalHeader>
+                        <ModalHeader>New Message</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody pb={6}>
                             <FormControl>
