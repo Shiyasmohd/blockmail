@@ -34,13 +34,13 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-  } from '@chakra-ui/react'
-  import {
+} from '@chakra-ui/react'
+import {
     FormControl,
     FormLabel,
     FormErrorMessage,
     FormHelperText,
-  } from '@chakra-ui/react'
+} from '@chakra-ui/react'
 import {
     FiHome,
     FiTrendingUp,
@@ -136,39 +136,39 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
                     Compose
                 </Button>
                 <Modal
-                  initialFocusRef={initialRef}
-                  finalFocusRef={finalRef}
-                  isOpen={isOpen}
-                  onClose={onClose}
+                    initialFocusRef={initialRef}
+                    finalFocusRef={finalRef}
+                    isOpen={isOpen}
+                    onClose={onClose}
                 >
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalHeader>Create your account</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody pb={6}>
-                      <FormControl>
-                        <FormLabel>To</FormLabel>
-                        <Input ref={initialRef} placeholder='First name' />
-                      </FormControl>
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>Compose your mail here</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody pb={6}>
+                            <FormControl>
+                                <FormLabel>To</FormLabel>
+                                <Input ref={initialRef} placeholder='Wallet Address/ENS' />
+                            </FormControl>
 
-                      <FormControl mt={4}>
-                        <FormLabel>Subject</FormLabel>
-                        <Input placeholder='Last name' />
-                      </FormControl>
+                            <FormControl mt={4}>
+                                <FormLabel>Subject</FormLabel>
+                                <Input placeholder='' />
+                            </FormControl>
 
-                      <FormControl mt={4}>
-                        <FormLabel>Message</FormLabel>
-                        <Textarea placeholder='Leave your message here!!' />
-                      </FormControl>
-                    </ModalBody>
+                            <FormControl mt={4}>
+                                <FormLabel>Message</FormLabel>
+                                <Textarea placeholder='Leave your message here!!' />
+                            </FormControl>
+                        </ModalBody>
 
-                    <ModalFooter>
-                      <Button colorScheme='blue' mr={3}>
-                        Send
-                      </Button>
-                      <Button onClick={onClose}>Cancel</Button>
-                    </ModalFooter>
-                  </ModalContent>
+                        <ModalFooter>
+                            <Button colorScheme='blue' mr={3}>
+                                Send
+                            </Button>
+                            <Button onClick={onClose}>Cancel</Button>
+                        </ModalFooter>
+                    </ModalContent>
                 </Modal>
             </div>
             {LinkItems.map((link) => (
