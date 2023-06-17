@@ -1,14 +1,16 @@
+'use client'
 import { Database } from "@tableland/sdk";
 import { Wallet, getDefaultProvider } from "ethers";
 
-const privateKey = "your_private_key";
-const wallet = new Wallet(privateKey);
-// To avoid connecting to the browser wallet (locally, port 8545).
-// For example: "https://polygon-mumbai.g.alchemy.com/v2/YOUR_ALCHEMY_KEY"
-const provider = getDefaultProvider("http://127.0.0.1:8545");
-const signer = wallet.connect(provider);
-// Connect to the database
-const db = new Database({ signer });
+const tableName: string = "shiyas_80001_6994"; // Our pre-defined health check table
+
+interface Mail {
+    id: number;
+    sender: string;
+    recipient: string;
+    subject: string;
+    body: string;
+}
 export default function Test() {
 
 
@@ -23,12 +25,66 @@ export default function Test() {
         const signer = wallet.connect(provider);
         // Connect to the database
         const db = new Database({ signer });
+        console.log(db)
+    }
+
+    const createData = async () => {
+        // Default to grabbing a wallet connection in a browser
+        const db = new Database<Mail>();
+
+        // This is the table's `prefix`; a custom table value prefixed as part of the table's name
+        const prefix: string = "shiyas";
+
+        const { meta: create } = await db
+            .prepare(`CREATE TABLE ${prefix} (id integer primary key, name text);`)
+            .run();
+
+        // The table's `name` is in the format `{prefix}_{chainId}_{tableId}`
+        console.log(create.txn?.name); // e.g., my_sdk_table_80001_311
+    }
+
+    const readData = async () => {
+        const db = new Database<Mail>();
+
+        // Type is inferred due to `Database` instance definition.
+        // Or, it can be identified in `prepare`.
+        const { results } = await db.prepare<Mail>(`SELECT * FROM ${tableName};`).all();
+        console.log(results);
+    }
+
+    const writeData = async () => {
+        // Insert a row into the table
+        const db = new Database<Mail>();
+
+        const { meta: insert } = await db
+            .prepare(`INSERT INTO ${tableName} (id, name) VALUES (?, ?);`)
+            .bind(0, "Shiyas Tables")
+            .run();
+
+        // Wait for transaction finality
+        await insert.txn?.wait();
+
+        // Perform a read query, requesting all rows from the table
+        const { results } = await db.prepare(`SELECT * FROM ${tableName};`).all();
+        console.log(results);
     }
 
     return (
         <div>
             <button onClick={handleClick}>
                 Test
+            </button>
+            <br />
+            <button onClick={createData}>
+                Create
+            </button>
+            <br />
+            <button onClick={readData}>
+                Read
+            </button>
+            <br />
+            <button onClick={writeData}>
+                Write
             </button>
         </div>
     )
