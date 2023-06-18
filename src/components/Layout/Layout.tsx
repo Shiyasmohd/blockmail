@@ -227,7 +227,7 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
 
                         <ModalFooter>
                             <InputGroup width={'130px'} m={'1'}>
-                                <InputLeftElement pointerEvents="none" children={<Icon as={FiFile} />} />
+                                <InputLeftElement pointerEvents="none" ><Icon as={FiFile} /></InputLeftElement>
                                 <input style={{ "display": "none" }} type="file" accept={acceptedFileTypes} onChange={(e: any) => setFile(e.target.files)} />
                                 <Input
                                     placeholder="Attach file"
