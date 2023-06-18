@@ -7,6 +7,7 @@ export type Mail = {
     recipient: string;
     subject: string;
     body: string;
+    from?: string;
 }
 
 const TABLE_NAME = 'shiyas_80001_6998'
