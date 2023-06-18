@@ -18,8 +18,11 @@ export async function sendMail(sender: string, recipient: string, subject: strin
     let id = generateRandomNumber()
     let recipientAddr = recipient
     if (recipient.includes('.eth')) {
-        let recipientAddr = await getAddress(recipient)
+        console.log('ens name fetching')
+        recipientAddr = await getAddress(recipient) || recipient
+        console.log('ens name fetched: ', recipientAddr)
     }
+    console.log({ recipientAddr })
     const { meta: insert } = await db
         .prepare(`INSERT INTO ${TABLE_NAME} (id, sender, recipient, subject, body) VALUES (?, ?, ?, ?, ?);`)
         .bind(id, sender, recipientAddr, subject, body)
