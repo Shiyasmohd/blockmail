@@ -5,12 +5,13 @@ import * as ethers from "ethers";
 import { ENV } from "@pushprotocol/restapi/src/lib/constants";
 
 const ethMainnetProvider = getDefaultProvider("https://mainnet.infura.io/v3/89d40c97f4bf44ceba600eeef7b57070");
-type Mail = {
+export type Mail = {
     id: number;
     sender: string;
     recipient: string;
     subject: string;
     body: string;
+    from?: string;
 }
 
 const TABLE_NAME = 'shiyas_80001_6998'
