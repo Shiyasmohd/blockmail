@@ -129,7 +129,7 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
     const [to, setTo] = React.useState('')
     const [subject, setSubject] = React.useState('')
     const [message, setMessage] = React.useState('')
-    const acceptedFileTypes = '.jpg, .jpeg, .png';
+    const acceptedFileTypes = '.jpg, .jpeg, .png, .pdf';
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
     const [file, setFile] = React.useState(null)
