@@ -1,3 +1,4 @@
+'use client'
 import { shortWalletAddress } from '@/lib/utils';
 import {
     Modal,
@@ -15,9 +16,13 @@ import {
 } from '@chakra-ui/react'
 import Link from 'next/link';
 import { IconType } from 'react-icons';
+import { usePathname } from 'next/navigation'
 //model to show mail 
 const ModalComponent = (props: any) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const path = usePathname()
+
     return (
         <>
             <div
@@ -44,12 +49,12 @@ const ModalComponent = (props: any) => {
                 motionPreset='slideInBottom'
             >
                 <ModalOverlay />
-                <ModalContent width={'2xl'} bg={'white'} color={"black"}>
+                <ModalContent bg={'white'} color={"black"}>
                     <ModalHeader color={"gray.500"} pb={'0px'}>{props.header}</ModalHeader>
                     <ModalCloseButton color={'gray.800'} />
                     <ModalBody >
                         <Flex flexDir={'column'} m="5px auto"  >
-                            <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>From:</Text>{props.mail.from}</Text>
+                            <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>{path == '/sent/' ? "To: " : "From: "}</Text>{props.address}</Text>
                             <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>Subject:</Text>{props.mail.subject}</Text>
                             <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>Body:</Text>{props.mail.body}</Text>
                             {

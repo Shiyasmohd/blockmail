@@ -69,7 +69,7 @@ export default function Sent() {
           {mails.length !== 0 ? (
             <main className="bg-slate-200 h-screen">
               {mails.map((mail, index) => (
-                <ModalComponent mail={mail} key={index} header={'Inbox'} />
+                <ModalComponent mail={mail} address={mail.sender} key={index} header={'Inbox'} />
               ))}
             </main>
           ) : (
@@ -80,8 +80,8 @@ export default function Sent() {
         </>
       ) : (
         <>
-          <Flex align="center" justifyContent={'center'} height={'80vh'}>
-            <Text fontSize="2xl">Please connect your wallet</Text>
+          <Flex align="center" justifyContent={'center'} className="bg-slate-200 h-screen">
+            <Text fontSize="base">Please connect your wallet</Text>
           </Flex>
         </>
       )}

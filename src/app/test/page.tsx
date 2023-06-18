@@ -3,7 +3,7 @@ import { sendNotification, storeFiles } from "@/lib/utils";
 import { Database } from "@tableland/sdk";
 import { Wallet, getDefaultProvider } from "ethers";
 
-const tableName: string = "shiyas_80001_6998"; // Our pre-defined health check table
+const tableName: string = "blockmail_80001_7018"; // Our pre-defined health check table
 
 interface Mail {
     id: number;
@@ -47,8 +47,8 @@ export default function Test() {
         const db = new Database<Mail>();
 
         const { meta: insert } = await db
-            .prepare(`INSERT INTO ${tableName} (id, sender, recipient, subject, body) VALUES (?, ?, ?, ?, ?);`)
-            .bind(0, "123", "123", "123", "123")
+            .prepare(`INSERT INTO ${tableName} (id, sender, recipient, subject, body, file) VALUES (?, ?, ?, ?, ?, ?);`)
+            .bind(74484218, "0x379AB0b69d7fbB5834741543245836Dd2B3E7C8A", "0x06C41df2358deD2Fd891522f9Da75eca2150c10B", "Web3 is Future", "Web3 is a decentralized network", "")
             .run();
         console.log(insert.txn)
 
