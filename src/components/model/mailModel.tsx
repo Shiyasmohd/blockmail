@@ -42,14 +42,14 @@ const ModalComponent = (props:any) =>{
                 motionPreset='slideInBottom'
             >
                 <ModalOverlay />
-                <ModalContent>
+                <ModalContent width={'2xl'}>
                     <ModalHeader color={"gray.500"} pb={'0px'}>{props.header}</ModalHeader>
                     <ModalCloseButton color={'gray.800'} />
                     <ModalBody >
-                        <Flex dir='col' width={'md'} m="10px auto">
-                            <Text color={'gray.500'}>{props.mail.from}</Text>
-                            <Text color={'gray.500'}>{props.mail.subject}</Text>
-                            <Text color={'gray.500'}>{props.mail.body}</Text>
+                        <Flex flexDir={'column'} m="5px auto"  >
+                            <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>From:</Text>{props.mail.from}</Text>
+                            <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>Subject:</Text>{props.mail.subject}</Text>
+                            <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>Body:</Text>{props.mail.body}</Text>
                         </Flex>
                     </ModalBody>
                 </ModalContent>

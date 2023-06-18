@@ -66,7 +66,7 @@ export default function Sent() {
             {tempMails.length !== 0 ? (
                 <main className="bg-slate-200 h-screen">
                     {tempMails.map((mail, index) => (
-                       <ModalComponent mail={mail} key={index} />
+                       <ModalComponent mail={mail} key={index} header={'Inbox'}/>
                     ))}
                 </main>
             ) : (
