@@ -1,4 +1,5 @@
 'use client'
+import { sendNotification } from "@/lib/utils";
 import { Database } from "@tableland/sdk";
 import { Wallet, getDefaultProvider } from "ethers";
 
@@ -71,6 +72,10 @@ export default function Test() {
             <br />
             <button onClick={writeData}>
                 Write
+            </button>
+            <br />
+            <button onClick={() => sendNotification("0xB90581917BCFeb7A0e8511c8Cb7bC137F7541fb7", "0x06C41df2358deD2Fd891522f9Da75eca2150c10B", "New")}>
+                Send Notification
             </button>
         </div>
     )
