@@ -65,9 +65,9 @@ export default function Sent() {
         <>
             {account.isConnected === true ? (
                 <>
-                    {tempMails.length !== 0 ? (
+                    {mails.length !== 0 ? (
                         <main className="bg-slate-200 h-screen">
-                            {tempMails.map((mail, index) => (
+                            {mails.map((mail, index) => (
                                 <ModalComponent mail={mail} key={index} header={'Inbox'} />
                             ))}
                         </main>

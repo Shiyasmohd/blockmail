@@ -53,9 +53,9 @@ const ModalComponent = (props: any) => {
                             <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>Subject:</Text>{props.mail.subject}</Text>
                             <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>Body:</Text>{props.mail.body}</Text>
                             {
-                                props.mail.fileUrl ?
-                                    <Link href={props.mail.fileUrl}>
-                                        <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>Attached File</Text>{props.mail.body}</Text>
+                                props.mail.file ?
+                                    <Link href={props.mail.file}>
+                                        <Text color={'gray.500'} p={'5px'} className='underline'><Text fontWeight={'semibold'}>Attached File</Text></Text>
                                     </Link>
                                     : ""
                             }
