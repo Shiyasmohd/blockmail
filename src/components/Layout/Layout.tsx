@@ -25,7 +25,8 @@ import {
     Divider,
     Input,
     Textarea,
-    useToast
+    useToast,
+    Spinner
 } from '@chakra-ui/react';
 import {
     Modal,
@@ -120,7 +121,7 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
     const chainId = useChainId()
     const toast = useToast()
     const network = useNetwork()
-
+    const [loading, setLoading] = React.useState(false)
     const [to, setTo] = React.useState('')
     const [subject, setSubject] = React.useState('')
     const [message, setMessage] = React.useState('')
@@ -144,6 +145,31 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
             duration: 9000,
             isClosable: false,
         })
+    }
+
+    const handleSendMail = async () => {
+        setLoading(true)
+        try {
+            await sendMail(account.address as string, to, subject, message)
+            toast({
+                title: 'Mail sent successfully.',
+                status: 'success',
+                duration: 9000,
+                isClosable: false,
+            })
+        } catch (err) {
+            toast({
+                title: 'Failed to send mail.',
+                description: "Please try again.",
+                status: 'error',
+                duration: 9000,
+                isClosable: false,
+            })
+            console.log(err)
+        } finally {
+            setLoading(false)
+            onClose()
+        }
     }
 
     return (
@@ -195,8 +221,8 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
                         </ModalBody>
 
                         <ModalFooter>
-                            <Button colorScheme='blue' mr={3} onClick={() => sendMail(account.address as string, to, subject, message)}>
-                                Send
+                            <Button colorScheme='blue' mr={3} onClick={handleSendMail}>
+                                {loading ? <Spinner size='xs' /> : 'Send'}
                             </Button>
                             <Button colorScheme='red' onClick={onClose}>Cancel</Button>
                         </ModalFooter>
