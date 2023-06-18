@@ -14,7 +14,7 @@ export type Mail = {
     recipient: string;
     subject: string;
     body: string;
-    from?: string;
+    file: string;
 }
 
 const TABLE_NAME = 'shiyas_80001_6998'
@@ -146,27 +146,6 @@ function getAccessToken() {
 
 function makeStorageClient() {
     return new Web3Storage({ token: getAccessToken() })
-}
-
-async function getFiles(path: any) {
-    const files = await getFilesFromPath(path)
-    console.log(`read ${files.length} file(s) from ${path}`)
-    return files
-}
-
-function makeFileObjects() {
-    // You can create File objects from a Buffer of binary data
-    // see: https://nodejs.org/api/buffer.html
-    // Here we're just storing a JSON object, but you can store images,
-    // audio, or whatever you want!
-    const obj = { hello: 'world' }
-    const buffer = Buffer.from(JSON.stringify(obj))
-
-    const files = [
-        new File(['contents-of-file-1'], 'plain-utf8.txt'),
-        new File([buffer], 'hello.json')
-    ]
-    return files
 }
 
 export async function storeFiles(files: any) {

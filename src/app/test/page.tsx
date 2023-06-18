@@ -11,6 +11,7 @@ interface Mail {
     recipient: string;
     subject: string;
     body: string;
+    file: string
 }
 export default function Test() {
 
@@ -20,10 +21,10 @@ export default function Test() {
         const db = new Database<Mail>();
 
         // This is the table's `prefix`; a custom table value prefixed as part of the table's name
-        const prefix: string = "shiyas";
+        const prefix: string = "blockmail";
 
         const { meta: create } = await db
-            .prepare(`CREATE TABLE ${prefix} (id integer primary key, sender text, recipient text, subject text, body text);`)
+            .prepare(`CREATE TABLE ${prefix} (id integer primary key, sender text, recipient text, subject text, body text,file text);`)
             .run();
 
         // The table's `name` is in the format `{prefix}_{chainId}_{tableId}`
