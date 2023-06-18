@@ -86,7 +86,7 @@ export default function MainLayout({
     children: ReactNode;
 }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    
+
     return (
         <Box minH="100vh" bg={'white'}>
             <SidebarContent
@@ -132,7 +132,7 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
     const acceptedFileTypes = '.jpg, .jpeg, .png, .pdf';
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
-    const [file, setFile] = React.useState(null)
+    const [file, setFile] = React.useState<any>()
     const connectWalletToast = () => {
         toast({
             title: 'Please connect your wallet first.',
@@ -153,8 +153,9 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
 
     const handleSendMail = async () => {
         setLoading(true)
+        console.log(file)
         try {
-            await sendMail(account.address as string, to, subject, message)
+            await sendMail(account.address as string, to, subject, message, file)
             toast({
                 title: 'Mail sent successfully.',
                 status: 'success',
@@ -227,10 +228,10 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
                         <ModalFooter>
                             <InputGroup width={'130px'} m={'1'}>
                                 <InputLeftElement pointerEvents="none" children={<Icon as={FiFile} />} />
-                                <input style={{ "display": "none" }} type="file" accept={acceptedFileTypes} onChange={(e) => setFile(e.target.files[0])} />
+                                <input style={{ "display": "none" }} type="file" accept={acceptedFileTypes} onChange={(e: any) => setFile(e.target.files)} />
                                 <Input
                                     placeholder="Attach file"
-                                    value={file?.name}
+                                    value={file ? file[0].name : ''}
                                     readOnly
                                     //@ts-ignore
                                     onClick={() => document.querySelector('input[type=file]').click()}

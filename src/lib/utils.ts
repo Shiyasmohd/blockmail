@@ -17,10 +17,11 @@ export type Mail = {
     file: string;
 }
 
-const TABLE_NAME = 'shiyas_80001_6998'
+const TABLE_NAME = 'blockmail_80001_7018'
 
-export async function sendMail(sender: string, recipient: string, subject: string, body: string) {
+export async function sendMail(sender: string, recipient: string, subject: string, body: string, file: any) {
 
+    console.log({ sender, recipient, subject, body, file })
     // Insert a row into the table
     const db = new Database<Mail>();
     let id = generateRandomNumber()
@@ -30,10 +31,15 @@ export async function sendMail(sender: string, recipient: string, subject: strin
         recipientAddr = await getAddress(recipient) || recipient
         console.log('ens name fetched: ', recipientAddr)
     }
+    let fileUrl = ""
+    if (file) {
+        fileUrl = await storeFiles(file)
+        console.log({ fileUrl })
+    }
     console.log({ recipientAddr })
     const { meta: insert } = await db
-        .prepare(`INSERT INTO ${TABLE_NAME} (id, sender, recipient, subject, body) VALUES (?, ?, ?, ?, ?);`)
-        .bind(id, sender, recipientAddr, subject, body)
+        .prepare(`INSERT INTO ${TABLE_NAME} (id, sender, recipient, subject, body, file) VALUES (?, ?, ?, ?, ?,?);`)
+        .bind(id, sender, recipientAddr, subject, body, fileUrl)
         .run();
     console.log(insert.txn)
 

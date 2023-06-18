@@ -1,3 +1,4 @@
+import { shortWalletAddress } from '@/lib/utils';
 import {
     Modal,
     ModalOverlay,
@@ -12,29 +13,30 @@ import {
     Icon,
     Flex,
 } from '@chakra-ui/react'
+import Link from 'next/link';
 import { IconType } from 'react-icons';
 //model to show mail 
-const ModalComponent = (props:any) =>{
+const ModalComponent = (props: any) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
-        <div
-            onClick={onOpen}
-            key={props.index}
-            className="bg-[#f6f8fc] hover:bg-[white] cursor-pointer"
+            <div
+                onClick={onOpen}
+                key={props.index}
+                className="bg-[#f6f8fc] hover:bg-[white] cursor-pointer"
             >
-            <div className="flex p-4">
-                <div className="font-bold px-5 " style={{ width: "240px" }}>{props.mail.from}</div>
+                <div className="flex p-4">
+                    <div className="font-bold px-5 " style={{ width: "240px" }}>{shortWalletAddress(props.mail.recipient)}</div>
 
-                <div className="flex px-5" style={{ width: "260px" }}><div className="font-bold px-5">Sub:</div>{props.mail.subject}</div>
-                <div className="font-bold px-5">Body:</div>
-                <div className="px-5">
-                    {props.mail.body.split(" ").slice(0, 2).join(" ")}
-                    {props.mail.body.split(" ").length > 2 ? "..." : ""}
+                    <div className="flex px-5" style={{ width: "260px" }}><div className="font-bold px-5">Sub:</div>{props.mail.subject}</div>
+                    <div className="font-bold px-5">Body:</div>
+                    <div className="px-5">
+                        {props.mail.body.split(" ").slice(0, 2).join(" ")}
+                        {props.mail.body.split(" ").length > 2 ? "..." : ""}
+                    </div>
                 </div>
+                <hr className="border-t-2 border-gray-300" />
             </div>
-            <hr className="border-t-2 border-gray-300" />
-        </div>
             <Modal
                 isCentered
                 onClose={onClose}
@@ -42,7 +44,7 @@ const ModalComponent = (props:any) =>{
                 motionPreset='slideInBottom'
             >
                 <ModalOverlay />
-                <ModalContent width={'2xl'}>
+                <ModalContent width={'2xl'} bg={'white'} color={"black"}>
                     <ModalHeader color={"gray.500"} pb={'0px'}>{props.header}</ModalHeader>
                     <ModalCloseButton color={'gray.800'} />
                     <ModalBody >
@@ -50,12 +52,19 @@ const ModalComponent = (props:any) =>{
                             <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>From:</Text>{props.mail.from}</Text>
                             <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>Subject:</Text>{props.mail.subject}</Text>
                             <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>Body:</Text>{props.mail.body}</Text>
+                            {
+                                props.mail.fileUrl ?
+                                    <Link href={props.mail.fileUrl}>
+                                        <Text color={'gray.500'} p={'5px'}><Text fontWeight={'semibold'}>Attached File</Text>{props.mail.body}</Text>
+                                    </Link>
+                                    : ""
+                            }
                         </Flex>
                     </ModalBody>
                 </ModalContent>
             </Modal>
         </>
-        
+
     )
 }
 
