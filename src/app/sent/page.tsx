@@ -3,9 +3,10 @@ import { getSentMail } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
+import { Mail } from "@/lib/utils";
+
 export default function Sent() {
     const account = useAccount();
-    //@ts-ignore
     const [mails, setMails] = useState<Mail[]>([]);
 
     useEffect(() => {

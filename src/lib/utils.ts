@@ -1,7 +1,7 @@
 import { Database } from "@tableland/sdk";
 import { getDefaultProvider } from "ethers";
 const ethMainnetProvider = getDefaultProvider("https://mainnet.infura.io/v3/89d40c97f4bf44ceba600eeef7b57070");
-type Mail = {
+export type Mail = {
     id: number;
     sender: string;
     recipient: string;
