@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { Mail } from "@/lib/utils";
 import ModalComponent from "@/components/model/mailModel";
+import { Flex,Text} from "@chakra-ui/react";
 export default function Sent() {
     const account = useAccount();
     const [mails, setMails] = useState<Mail[]>([]);
@@ -61,19 +62,29 @@ export default function Sent() {
         },
     ];
 
-    return (
+  return (
+    <>
+      {account.isConnected === true ? (
         <>
-            {tempMails.length !== 0 ? (
-                <main className="bg-slate-200 h-screen">
-                    {tempMails.map((mail, index) => (
-                       <ModalComponent mail={mail} key={index} header={'Inbox'}/>
-                    ))}
-                </main>
-            ) : (
-                <div className="flex justify-center items-center h-screen">
-                    No mails
-                </div>
-            )}
+          {tempMails.length !== 0 ? (
+            <main className="bg-slate-200 h-screen">
+              {tempMails.map((mail, index) => (
+                <ModalComponent mail={mail} key={index} header={'Inbox'} />
+              ))}
+            </main>
+          ) : (
+            <div className="flex justify-center items-center h-screen">
+              No mails
+            </div>
+          )}
         </>
-    );
+      ) : (
+        <>
+          <Flex align="center" justifyContent={'center'} height={'80vh'}>
+            <Text fontSize="2xl">Please connect your wallet</Text>
+          </Flex>
+        </>
+      )}
+    </>
+  );
 }
