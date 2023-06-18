@@ -9,7 +9,6 @@ import {
     VStack,
     Icon,
     useColorModeValue,
-    Link,
     Drawer,
     DrawerContent,
     Text,
@@ -30,6 +29,7 @@ import {
     InputGroup,
     InputLeftElement
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import {
     Modal,
     ModalOverlay,
@@ -261,7 +261,7 @@ interface NavItemProps extends FlexProps {
 }
 const NavItem = ({ icon, route, children, ...rest }: NavItemProps) => {
     return (
-        <Link href={route} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+        <Link href={route} style={{ textDecoration: 'none' }} >
             <Flex
                 align="center"
                 p="4"
