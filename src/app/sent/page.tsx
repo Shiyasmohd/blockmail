@@ -2,9 +2,8 @@
 import { getSentMail } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-
 import { Mail } from "@/lib/utils";
-
+import ModalComponent from "@/components/model/mailModel";
 export default function Sent() {
     const account = useAccount();
     const [mails, setMails] = useState<Mail[]>([]);
@@ -29,21 +28,45 @@ export default function Sent() {
         })();
     }, []);
 
+    const tempMails = [
+        {
+            from: "example1@example.com",
+            subject: "Hello",
+            body: "Hi, how are you?",
+        },
+        {
+            from: "example2@example.com",
+            subject: "Test Email",
+            body: "This is a test email.",
+        },
+        {
+            from: "example3@example.com",
+            subject: "Meeting Reminder",
+            body: "Just a reminder about the meeting tomorrow.",
+        },
+        {
+            from: "example4@example.com",
+            subject: "Important Announcement",
+            body: "Please read the attached announcement carefully.",
+        },
+        {
+            from: "example5@example.com",
+            subject: "New Product Launch",
+            body: "Introducing our latest product. Check it out!",
+        },
+        {
+            from: "example6@example.com",
+            subject: "Vacation Plans",
+            body: "I will be on vacation next week. See you when I return!",
+        },
+    ];
+
     return (
         <>
-            {mails.length !== 0 ? (
+            {tempMails.length !== 0 ? (
                 <main className="bg-slate-200 h-screen">
-                    {mails.map((mail, index) => (
-                        <div
-                            key={index}
-                            className="bg-[#f6f8fc] hover:bg-[white] cursor-pointer"
-                        >
-                            <div className="flex p-4">
-                                <div className="font-bold px-5">{mail.from}</div>
-                                <div className="px-5">{mail.subject}</div>
-                            </div>
-                            <hr className="border-t-2 border-gray-300" />
-                        </div>
+                    {tempMails.map((mail, index) => (
+                       <ModalComponent mail={mail} key={index} />
                     ))}
                 </main>
             ) : (
