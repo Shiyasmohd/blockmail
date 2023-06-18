@@ -26,7 +26,9 @@ import {
     Input,
     Textarea,
     useToast,
-    Spinner
+    Spinner,
+    InputGroup,
+    InputLeftElement
 } from '@chakra-ui/react';
 import {
     Modal,
@@ -54,7 +56,8 @@ import {
     FiChevronDown,
     FiMail,
     FiSend,
-    FiEdit2
+    FiEdit2,
+    FiFile
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
@@ -83,6 +86,7 @@ export default function MainLayout({
     children: ReactNode;
 }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    
     return (
         <Box minH="100vh" bg={'white'}>
             <SidebarContent
@@ -125,10 +129,10 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
     const [to, setTo] = React.useState('')
     const [subject, setSubject] = React.useState('')
     const [message, setMessage] = React.useState('')
-
+    const acceptedFileTypes = '.jpg, .jpeg, .png';
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
-
+    const [file, setFile] = React.useState(null)
     const connectWalletToast = () => {
         toast({
             title: 'Please connect your wallet first.',
@@ -221,10 +225,22 @@ const SidebarContent = ({ onclose, ...rest }: SidebarProps) => {
                         </ModalBody>
 
                         <ModalFooter>
-                            <Button colorScheme='blue' mr={3} onClick={handleSendMail}>
+                            <InputGroup width={'130px'} m={'1'}>
+                                <InputLeftElement pointerEvents="none" children={<Icon as={FiFile} />} />
+                                <input style={{ "display": "none" }} type="file" accept={acceptedFileTypes} onChange={(e) => setFile(e.target.files[0])} />
+                                <Input
+                                    placeholder="Attach file"
+                                    value={file?.name}
+                                    readOnly
+                                    //@ts-ignore
+                                    onClick={() => document.querySelector('input[type=file]').click()}
+                                    cursor='pointer'
+                                />
+                            </InputGroup>
+                            <Button colorScheme='blue' color={'gray.700'} _hover={{ color: "white", backgroundColor: "#2280a8" }} mr={3} onClick={handleSendMail}>
                                 {loading ? <Spinner size='xs' /> : 'Send'}
                             </Button>
-                            <Button colorScheme='red' onClick={onClose}>Cancel</Button>
+                            <Button colorScheme='red' color={'gray.700'} _hover={{ color: "white", backgroundColor: "#b0192d" }} onClick={onClose}>Cancel</Button>
                         </ModalFooter>
                     </ModalContent>
                 </Modal>
