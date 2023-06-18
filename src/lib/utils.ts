@@ -38,7 +38,16 @@ export async function sendMail(sender: string, recipient: string, subject: strin
     return true
 }
 
-export async function getUserMail(sender: string): Promise<Mail[]> {
+export async function getReceivedMail(recipient: string): Promise<Mail[]> {
+    const db = new Database<Mail>();
+
+    // Type is inferred due to `Database` instance definition.
+    // Or, it can be identified in `prepare`.
+    const { results } = await db.prepare<Mail>(`SELECT * FROM ${TABLE_NAME} WHERE recipient="${recipient}";`).all();
+    console.log(results);
+    return results
+}
+export async function getSentMail(sender: string): Promise<Mail[]> {
     const db = new Database<Mail>();
 
     // Type is inferred due to `Database` instance definition.

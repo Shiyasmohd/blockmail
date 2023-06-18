@@ -1,5 +1,5 @@
 "use client"
-import { getUserMail } from "@/lib/utils";
+import { getSentMail } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
@@ -13,10 +13,10 @@ export default function Sent() {
             try {
                 if (account.address !== undefined) {
                     console.log(
-                        "account.address",account.address
+                        "account.address", account.address
                     );
-                    
-                    const mails = await getUserMail(account.address);
+
+                    const mails = await getSentMail(account.address);
                     if (mails) {
                         setMails(mails);
                         console.log("mails", mails);
